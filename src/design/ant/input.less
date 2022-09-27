@@ -1,0 +1,32 @@
+@import (reference) '../color.less';
+
+// input
+.ant-input {
+  &-number {
+    min-width: 110px !important;
+    width: auto !important;
+    max-width: 100%;
+  }
+}
+
+.ant-input-affix-wrapper .ant-input-suffix {
+  right: 8px;
+}
+
+.ant-input-clear-icon {
+  margin-right: 4px;
+}
+
+.ant-input-affix-wrapper-textarea-with-clear-btn {
+  textarea.ant-input {
+    padding-right: 20px;
+  }
+
+  .ant-input-clear-icon {
+    right: 11px !important;
+  }
+}
+
+.ant-picker-input > input:focus {
+  box-shadow: none !important;
+}
