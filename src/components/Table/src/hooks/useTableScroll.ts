@@ -167,8 +167,9 @@ export function useTableScroll(
       headerHeight;
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);
-
-    bodyEl!.style.height = `${height}px`;
+    if (!maxHeight) {
+      bodyEl!.style.height = `${height}px`;
+    }
   }
   useWindowSizeFn(calcTableHeight, 280);
   onMountedOrActivated(() => {
