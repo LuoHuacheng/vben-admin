@@ -1,7 +1,11 @@
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],
-  extends: ['stylelint-config-recommended', 'stylelint-config-recommended-vue'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-recommended',
+    'stylelint-config-recommended-vue',
+  ],
   customSyntax: 'postcss-html',
   rules: {
     'function-no-unknown': null,
