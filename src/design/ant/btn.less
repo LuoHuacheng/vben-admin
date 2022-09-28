@@ -17,7 +17,7 @@
     }
   }
 
-  &-primary:not(&-background-ghost) :not([disabled]) {
+  &-primary:not(&-background-ghost):not([disabled]) {
     color: @white;
   }
 
@@ -32,13 +32,7 @@
       background-color: @button-cancel-hover-bg-color;
       border-color: @button-cancel-hover-border-color;
     }
-    //
-    //&[disabled],
-    //&[disabled]:hover {
-    //  color: fade(@button-cancel-color, 40%) !important;
-    //  background: fade(@button-cancel-bg-color, 40%) !important;
-    //  border-color: fade(@button-cancel-border-color, 40%) !important;
-    //}
+
   }
 
   [data-theme='light'] &.ant-btn-link.is-disabled {
@@ -58,8 +52,6 @@
     border-color: transparent !important;
     box-shadow: none;
   }
-
-  // color: @white;
 
   &-success.ant-btn-link:not([disabled='disabled']) {
     color: @button-success-color;
@@ -136,12 +128,6 @@
       border-color: @button-warn-active-color;
     }
 
-    //&[disabled],
-    //&[disabled]:hover {
-    //  color: @white;
-    //  background-color: fade(@button-warn-color, 40%);
-    //  border-color: fade(@button-warn-color, 40%);
-    //}
   }
 
   &-error.ant-btn-link:not([disabled='disabled']) {
@@ -176,12 +162,6 @@
       border-color: @button-error-active-color;
     }
 
-    //&[disabled],
-    //&[disabled]:hover {
-    //  color: @white;
-    //  background-color: fade(@button-error-color, 40%);
-    //  border-color: fade(@button-error-color, 40%);
-    //}
   }
 
   &-background-ghost {

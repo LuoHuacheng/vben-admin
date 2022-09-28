@@ -73,6 +73,7 @@ module.exports = {
       ],
       { severity: 'warning' },
     ],
+    'selector-not-notation': 'simple',
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
   overrides: [
@@ -93,12 +94,16 @@ module.exports = {
             ignorePseudoElements: ['v-deep', 'v-global', 'v-slotted'],
           },
         ],
+        'selector-not-notation': 'simple',
       },
     },
     {
       files: ['*.less', '**/*.less'],
       customSyntax: 'postcss-less',
       extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue'],
+      rules: {
+        'selector-not-notation': 'simple',
+      },
     },
   ],
 };
