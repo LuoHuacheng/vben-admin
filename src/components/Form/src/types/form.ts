@@ -26,16 +26,16 @@ export interface ButtonProps extends AntdButtonProps {
 
 export interface FormActionType {
   submit: () => Promise<void>;
-  setFieldsValue: <T>(values: T) => Promise<void>;
+  setFieldsValue: (values: Recordable) => Promise<void>;
   resetFields: () => Promise<void>;
   getFieldsValue: () => Recordable;
   clearValidate: (name?: string | string[]) => Promise<void>;
   updateSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   resetSchema: (data: Partial<FormSchema> | Partial<FormSchema>[]) => Promise<void>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
-  removeSchemaByFiled: (field: string | string[]) => Promise<void>;
+  removeSchemaByField: (field: string | string[]) => Promise<void>;
   appendSchemaByField: (
-    schema: FormSchema,
+    schema: FormSchema | FormSchema[],
     prefixField: string | undefined,
     first?: boolean | undefined,
   ) => Promise<void>;

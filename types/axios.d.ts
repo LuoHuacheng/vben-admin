@@ -1,4 +1,4 @@
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+export type MessageMode = 'none' | 'modal' | 'message' | undefined;
 
 export interface RequestOptions {
   // Splicing request parameters to url
@@ -19,8 +19,8 @@ export interface RequestOptions {
 
   // 展示操作成功提示
   showSuccessMsg?: boolean;
-  // Error message prompt type
-  errorMessageMode?: ErrorMessageMode;
+  // message prompt type
+  messageMode?: MessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;

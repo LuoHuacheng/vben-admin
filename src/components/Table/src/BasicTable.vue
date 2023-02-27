@@ -84,6 +84,7 @@
   import { warn } from '/@/utils/log';
 
   export default defineComponent({
+    name: 'BasicTable',
     components: {
       Table,
       BasicForm,
@@ -145,6 +146,7 @@
         getRowSelection,
         getRowSelectionRef,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -297,6 +299,7 @@
       const tableAction: TableActionType = {
         reload,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -386,6 +389,7 @@
       .ant-form {
         padding: 12px 10px 6px;
         margin-bottom: 16px;
+        width: 100%;
         background-color: @component-background;
         border-radius: 2px;
       }

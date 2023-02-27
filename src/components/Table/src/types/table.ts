@@ -85,9 +85,10 @@ export type SizeType = 'default' | 'middle' | 'small' | 'large';
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
   getSelectRows: <T = Recordable>() => T[];
+  setSelectedRows: (rows: Recordable[]) => void;
   clearSelectedRowKeys: () => void;
   expandAll: () => void;
-  expandRows: (keys: string[]) => void;
+  expandRows: (keys: string[] | number[]) => void;
   collapseAll: () => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
   getSelectRowKeys: () => string[];
@@ -96,7 +97,7 @@ export interface TableActionType {
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
   deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
-  insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
+  insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => Recordable[] | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
@@ -314,7 +315,7 @@ export interface BasicTableProps<T = any> {
    * you need to add style .ant-table td { white-space: nowrap; }.
    * @type object
    */
-  scroll?: { x?: number | true; y?: number };
+  scroll?: { x?: number | string | true; y?: number | string };
 
   /**
    * Whether to show table header

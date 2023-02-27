@@ -128,7 +128,9 @@
     },
     cropperOption: {
       type: Object,
+      default: () => ({}),
     },
+    src: { type: String },
   };
 
   export default defineComponent({
@@ -138,7 +140,7 @@
     emits: ['uploadSuccess', 'uploadFail', 'register'],
     setup(props, { emit }) {
       let filename = '';
-      const src = ref('');
+      const src = ref(props.src || '');
       const previewSource = ref('');
       const cropper = ref<Cropper>();
       let scaleX = 1;
@@ -190,7 +192,7 @@
               const path = formatToDate(Date.now());
               const name = `${path}/${buildNanoId()}.png`;
               const result = await uploadApi({ name, file: blob, filename });
-              emit('uploadSuccess', { source: result });
+              emit('uploadSuccess', { source: previewSource.value, data: result });
               closeModal();
             } catch (error) {
               emit('uploadFail', error);

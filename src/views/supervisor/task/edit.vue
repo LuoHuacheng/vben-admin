@@ -48,7 +48,7 @@
         }
       });
 
-      const [registerForm, { appendSchemaByField, removeSchemaByFiled, setFieldsValue, validate }] =
+      const [registerForm, { appendSchemaByField, removeSchemaByField, setFieldsValue, validate }] =
         useForm({
           labelWidth: 20,
           actionColOptions: { span: 24 },
@@ -151,7 +151,7 @@
       }
 
       function del(field: number | string) {
-        removeSchemaByFiled([
+        removeSchemaByField([
           `field_${field}_desc`,
           `field_${field}_key`,
           `field_${field}_value`,

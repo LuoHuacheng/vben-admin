@@ -230,7 +230,7 @@
       function init() {
         const columns = getColumns();
         const checkList = table
-          .getColumns({ ignoreAction: true })
+          .getColumns({ ignoreAction: true, ignoreIndex: true })
           .map((item) => {
             if (item.defaultHidden) {
               return '';

@@ -76,7 +76,12 @@ export function useFormValues({
       }
       // Remove spaces
       if (isString(value)) {
-        value = value.trim();
+        // remove params from URL
+        if (value === '') {
+          value = undefined;
+        } else {
+          value = value.trim();
+        }
       }
       if (!tryDeconstructArray(key, value, res) && !tryDeconstructObject(key, value, res)) {
         // 没有解构成功的，按原样赋值
@@ -97,7 +102,11 @@ export function useFormValues({
     }
 
     for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
-      if (!field || !startTimeKey || !endTimeKey || !values[field]) {
+      if (!field || !startTimeKey || !endTimeKey) {
+        continue;
+      }
+      if (!values[field]) {
+        Reflect.deleteProperty(values, field);
         continue;
       }
 

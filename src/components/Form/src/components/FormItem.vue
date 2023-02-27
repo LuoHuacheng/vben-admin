@@ -35,7 +35,7 @@
         default: () => ({}),
       },
       setFormModel: {
-        type: Function as PropType<(key: string, value: any) => void>,
+        type: Function as PropType<(key: string, value: any, schema: FormSchema) => void>,
         default: null,
       },
       tableAction: {
@@ -44,6 +44,7 @@
       formActionType: {
         type: Object as PropType<FormActionType>,
       },
+      isAdvanced: { type: Boolean },
     },
     setup(props, { slots }) {
       const { t } = useI18n();
@@ -103,8 +104,8 @@
         const { show, ifShow } = props.schema;
         const { showAdvancedButton } = props.formProps;
         const itemIsAdvanced = showAdvancedButton
-          ? isBoolean(props.schema.isAdvanced)
-            ? props.schema.isAdvanced
+          ? isBoolean(props.isAdvanced)
+            ? props.isAdvanced
             : true
           : true;
 
@@ -251,7 +252,7 @@
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
-            props.setFormModel(field, value);
+            props.setFormModel(field, value, props.schema);
           },
         };
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;

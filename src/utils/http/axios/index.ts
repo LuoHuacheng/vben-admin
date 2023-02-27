@@ -20,7 +20,7 @@ import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
-const { createMessage, createErrorModal } = useMessage();
+const { createMessage, createErrorModal, createSuccessModal } = useMessage();
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -53,14 +53,18 @@ const transform: AxiosTransform = {
     // 这里逻辑可以根据项目进行修改
     if (code === 200) {
       if (options.showSuccessMsg) {
-        createMessage.success('操作成功');
+        if (options.messageMode === 'modal') {
+          createSuccessModal({ title: t('sys.api.successTip'), content: '操作成功' });
+        } else if (options.messageMode === 'message') {
+          createMessage.success('操作成功');
+        }
       }
       return data ?? true;
     }
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
-    checkStatus(code, message, options.errorMessageMode);
+    checkStatus(code, message, options.messageMode);
 
     throw new Error(message || t('sys.api.apiRequestFailed'));
   },
@@ -148,7 +152,7 @@ const transform: AxiosTransform = {
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
     const { response, code, message, config } = error || {};
-    const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
+    const messageMode = config?.requestOptions?.messageMode || 'none';
     const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
     let errMessage = '';
@@ -162,9 +166,9 @@ const transform: AxiosTransform = {
       }
 
       if (errMessage) {
-        if (errorMessageMode === 'modal') {
+        if (messageMode === 'modal') {
           createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
-        } else if (errorMessageMode === 'message') {
+        } else if (messageMode === 'message') {
           createMessage.error(errMessage);
         }
         return Promise.reject(error);
@@ -172,7 +176,7 @@ const transform: AxiosTransform = {
     } catch (error) {
       throw new Error(error as unknown as string);
     }
-    checkStatus(error?.response?.status, msg, errorMessageMode);
+    checkStatus(error?.response?.status, msg, messageMode);
 
     // 添加自动重试机制 保险起见 只针对GET请求
     const retryRequest = new AxiosRetry();
@@ -215,7 +219,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 格式化提交参数时间
           formatDate: true,
           // 消息提示类型
-          errorMessageMode: 'message',
+          messageMode: 'message',
           // 接口地址
           apiUrl: globSetting.apiUrl,
           // 接口拼接地址

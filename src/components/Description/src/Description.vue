@@ -28,7 +28,7 @@
     },
     collapseOptions: {
       type: Object as PropType<CollapseContainerOptions>,
-      default: null,
+      default: () => null,
     },
     labelWidth: { type: Number, default: 120 },
     contentWidth: { type: Number, default: 0 },
@@ -36,7 +36,7 @@
       type: Array as PropType<DescItem[]>,
       default: () => [],
     },
-    data: { type: Object },
+    data: { type: Object, default: () => ({}) },
     emptyStr: { type: String, default: '' },
   };
 

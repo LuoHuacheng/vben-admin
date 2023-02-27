@@ -9,7 +9,7 @@
   defineProps({
     data: {
       type: Object,
-      default: null,
+      default: () => null,
     },
     depth: {
       type: Number,

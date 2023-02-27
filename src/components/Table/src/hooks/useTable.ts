@@ -79,6 +79,9 @@ export function useTable(tableProps?: Props): [
     setLoading: (loading: boolean) => {
       getTableInstance().setLoading(loading);
     },
+    setSelectedRows: (rows: Recordable[]) => {
+      return toRaw(getTableInstance().setSelectedRows(rows));
+    },
     getDataSource: () => {
       return getTableInstance().getDataSource();
     },

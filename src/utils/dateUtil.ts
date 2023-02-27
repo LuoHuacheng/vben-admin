@@ -13,23 +13,17 @@ const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 const DATE_FORMAT = 'YYYY-MM-DD';
 const DATE_FORMAT_WITHOUT_SEPARATOR = 'YYYYMMDD';
 
-export function formatToDateTime(
-  date: string | number | dayjs.Dayjs | undefined = undefined,
-  format = DATE_TIME_FORMAT,
-): string {
+export function formatToDateTime(date: dayjs.ConfigType, format = DATE_TIME_FORMAT): string {
   return dayjs(date).tz(DATE_TIMEZONE).format(format);
 }
 
-export function formatToDate(
-  date: string | number | dayjs.Dayjs | undefined = undefined,
-  format = DATE_FORMAT,
-): string {
+export function formatToDate(date: dayjs.ConfigType, format = DATE_FORMAT): string {
   if (!date) return '';
   return dayjs(date).tz(DATE_TIMEZONE).format(format);
 }
 
 export function formatToDateNoSeparator(
-  date: string | number | dayjs.Dayjs | undefined = undefined,
+  date: dayjs.ConfigType,
   format = DATE_FORMAT_WITHOUT_SEPARATOR,
 ): string {
   if (!date) return '';

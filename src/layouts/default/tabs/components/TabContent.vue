@@ -33,7 +33,7 @@
     props: {
       tabItem: {
         type: Object as PropType<RouteLocationNormalized>,
-        default: null,
+        default: () => null,
       },
       isExtra: Boolean,
     },

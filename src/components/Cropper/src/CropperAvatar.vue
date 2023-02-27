@@ -50,7 +50,7 @@
     width: { type: [String, Number], default: '200px' },
     value: { type: String },
     showBtn: { type: Boolean, default: true },
-    btnProps: { type: Object as PropType<ButtonProps> },
+    btnProps: { type: Object as PropType<ButtonProps>, default: () => ({}) },
     btnText: { type: String, default: '' },
     uploadApi: { type: Function as PropType<({ file, name }) => Promise<void>> },
   };
@@ -90,9 +90,9 @@
         },
       );
 
-      function handleUploadSuccess({ source }) {
+      function handleUploadSuccess({ source, data }) {
         sourceValue.value = source;
-        emit('change', source);
+        emit('change', { source, data });
         createMessage.success(t('component.cropper.uploadSuccess'));
       }
 

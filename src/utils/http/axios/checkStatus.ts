@@ -1,4 +1,4 @@
-import type { ErrorMessageMode } from '/#/axios';
+import type { MessageMode } from '/#/axios';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { useI18n } from '/@/hooks/web/useI18n';
 // import router from '/@/router';
@@ -13,7 +13,7 @@ const stp = projectSetting.sessionTimeoutProcessing;
 export function checkStatus(
   status: number,
   msg: string,
-  errorMessageMode: ErrorMessageMode = 'message',
+  messageMode: MessageMode = 'message',
 ): void {
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();
@@ -69,12 +69,12 @@ export function checkStatus(
     default:
   }
 
-  // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-  // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
+  // messageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+  // messageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
   if (errMessage) {
-    if (errorMessageMode === 'modal') {
+    if (messageMode === 'modal') {
       createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
-    } else if (errorMessageMode === 'message') {
+    } else if (messageMode === 'message') {
       createMessage.error({ content: errMessage, key: `global_error_message_status_${status}` });
     }
   }

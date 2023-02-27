@@ -9,7 +9,7 @@
 
   const props = {
     width: { type: Number, default: 156 },
-    customEvent: { type: Object as PropType<Event>, default: null },
+    customEvent: { type: Object as PropType<Event>, default: () => null },
     styles: { type: Object as PropType<CSSProperties> },
     showIcon: { type: Boolean, default: true },
     axis: {

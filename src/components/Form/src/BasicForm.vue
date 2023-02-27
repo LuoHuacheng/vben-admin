@@ -10,6 +10,7 @@
       <slot name="formHeader"></slot>
       <template v-for="schema in getSchema" :key="schema.field">
         <FormItem
+          :isAdvanced="fieldsIsAdvancedMap[schema.field]"
           :tableAction="tableAction"
           :formActionType="formActionType"
           :schema="schema"
@@ -51,6 +52,7 @@
 
   import { cloneDeep } from 'lodash-es';
   import { deepMerge } from '/@/utils';
+  import { isFunction, isArray } from '/@/utils/is';
 
   import { useFormValues } from './hooks/useFormValues';
   import useAdvanced from './hooks/useAdvanced';
@@ -141,7 +143,7 @@
         }
       });
 
-      const { handleToggleAdvanced } = useAdvanced({
+      const { handleToggleAdvanced, fieldsIsAdvancedMap } = useAdvanced({
         advanceState,
         emit,
         getProps,
@@ -174,7 +176,7 @@
         updateSchema,
         resetSchema,
         appendSchemaByField,
-        removeSchemaByFiled,
+        removeSchemaByField,
         resetFields,
         scrollToField,
       } = useFormEvents({
@@ -241,9 +243,12 @@
         propsRef.value = deepMerge(unref(propsRef) || {}, formProps);
       }
 
-      function setFormModel(key: string, value: any) {
+      function setFormModel(key: string, value: any, schema: FormSchema) {
         formModel[key] = value;
         const { validateTrigger } = unref(getBindValue);
+        if (isFunction(schema.dynamicRules) || isArray(schema.rules)) {
+          return;
+        }
         if (!validateTrigger || validateTrigger === 'change') {
           validateFields([key]).catch((_) => {});
         }
@@ -268,7 +273,7 @@
         updateSchema,
         resetSchema,
         setProps,
-        removeSchemaByFiled,
+        removeSchemaByField,
         appendSchemaByField,
         clearValidate,
         validateFields,
@@ -299,6 +304,7 @@
         getFormActionBindProps: computed(
           (): Recordable => ({ ...getProps.value, ...advanceState }),
         ),
+        fieldsIsAdvancedMap,
         ...formActionType,
       };
     },
