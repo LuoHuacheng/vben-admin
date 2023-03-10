@@ -110,6 +110,7 @@
         try {
           loading.value = true;
           const res = await api(props.params);
+          isFirstLoad.value = false;
           if (Array.isArray(res)) {
             options.value = res;
             emitChange();
@@ -132,7 +133,6 @@
             await fetch();
           } else if (!props.immediate && unref(isFirstLoad)) {
             await fetch();
-            isFirstLoad.value = false;
           }
         }
       }
